@@ -3,7 +3,7 @@
 Plugin Name: Post Expiration Manager
 Plugin URI: https://github.com/prangishviliAbe/post-expiration-manager
 Description: Control post expiration - automatically set to draft or delete.
-Version: 1.1
+Version: 1.2
 Author: Abe Prangishvili
 Author URI: https://github.com/prangishviliAbe
 */
@@ -20,3 +20,7 @@ define('PEM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 // Include the core functions and admin metabox
 require_once(PEM_PLUGIN_DIR . 'includes/pem-core-functions.php');
 require_once(PEM_PLUGIN_DIR . 'admin/pem-admin-metabox.php');
+
+// Activation and deactivation hooks
+register_activation_hook(PEM_PLUGIN_FILE, 'pem_activation');
+register_deactivation_hook(PEM_PLUGIN_FILE, 'pem_deactivation');
