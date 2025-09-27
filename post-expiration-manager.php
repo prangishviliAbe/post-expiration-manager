@@ -3,7 +3,7 @@
 Plugin Name: Post Expiration Manager
 Plugin URI: https://github.com/prangishviliAbe/post-expiration-manager
 Description: Control post expiration - automatically set to draft or delete.
-Version: 1.2
+Version: 1.3
 Author: Abe Prangishvili
 Author URI: https://github.com/prangishviliAbe
 */

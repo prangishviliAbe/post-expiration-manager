@@ -48,7 +48,6 @@ function pem_activation() {
         wp_schedule_event(time(), 'hourly', 'pem_check_expiration');
     }
 }
-register_activation_hook(PEM_PLUGIN_FILE, 'pem_activation');
 
 /**
  * Deactivate the cron job.
@@ -56,4 +55,3 @@ register_activation_hook(PEM_PLUGIN_FILE, 'pem_activation');
 function pem_deactivation() {
     wp_clear_scheduled_hook('pem_check_expiration');
 }
-register_deactivation_hook(PEM_PLUGIN_FILE, 'pem_deactivation');
