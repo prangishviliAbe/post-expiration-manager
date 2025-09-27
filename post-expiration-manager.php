@@ -3,7 +3,7 @@
 Plugin Name: Post Expiration Manager
 Plugin URI: https://github.com/prangishviliAbe/post-expiration-manager
 Description: Control post expiration - automatically set to draft or delete.
-Version: 1.4.3
+Version: 1.4.4
 Author: Abe Prangishvili
 Author URI: https://github.com/prangishviliAbe
 Last Updated: September 27, 2025
@@ -14,9 +14,26 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Load the update checker if available
+if (file_exists(plugin_dir_path(__FILE__) . 'plugin-update-checker-master/plugin-update-checker.php')) {
+    require_once(plugin_dir_path(__FILE__) . 'plugin-update-checker-master/plugin-update-checker.php');
+}
+
 // Define plugin constants
 define('PEM_PLUGIN_FILE', __FILE__);
 define('PEM_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+// Set up the update checker using the namespace
+if (class_exists('YahnisElsts\\PluginUpdateChecker\\v5\\PucFactory')) {
+    $myUpdateChecker = YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
+        'https://github.com/prangishviliAbe/post-expiration-manager/',
+        __FILE__,
+        'post-expiration-manager'
+    );
+    
+    // Set the branch that contains the stable release
+    $myUpdateChecker->setBranch('main');
+}
 
 // Include the core functions and admin metabox
 if (file_exists(PEM_PLUGIN_DIR . 'includes/pem-core-functions.php')) {
