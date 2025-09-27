@@ -8,14 +8,17 @@ if (!defined('ABSPATH')) {
  * Add the meta box to the post editor screen.
  */
 function pem_add_expiration_meta_box() {
-    add_meta_box(
-        'pem_expiration_settings',
-        'Post Expiration Settings',
-        'pem_expiration_meta_box_html',
-        'post',
-        'side',
-        'high'
-    );
+    // Ensure WordPress functions are available
+    if (function_exists('add_meta_box')) {
+        add_meta_box(
+            'pem_expiration_settings',
+            'Post Expiration Settings',
+            'pem_expiration_meta_box_html',
+            'post',
+            'side',
+            'high'
+        );
+    }
 }
 add_action('add_meta_boxes', 'pem_add_expiration_meta_box');
 
@@ -25,6 +28,12 @@ add_action('add_meta_boxes', 'pem_add_expiration_meta_box');
  * @param WP_Post $post The current post object.
  */
 function pem_expiration_meta_box_html($post) {
+    // Ensure WordPress functions are available
+    if (!function_exists('get_post_meta') || !function_exists('wp_nonce_field') || !function_exists('esc_attr') || !function_exists('selected')) {
+        echo '<p>WordPress functions not available.</p>';
+        return;
+    }
+    
     $expiration_date = get_post_meta($post->ID, '_pem_expiration_date', true);
     $expiration_action = get_post_meta($post->ID, '_pem_expiration_action', true);
     wp_nonce_field('pem_save_meta', 'pem_meta_nonce');
